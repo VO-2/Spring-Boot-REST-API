@@ -19,8 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password_hash, String password_salt, String email) {
-        this.id = id;
+    public User(String username, String password_hash, String password_salt, String email) {
         this.username = username;
         this.password_hash = password_hash;
         this.password_salt = password_salt;
