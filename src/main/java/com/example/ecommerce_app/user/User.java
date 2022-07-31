@@ -1,36 +1,48 @@
 package com.example.ecommerce_app.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Collection;
 
-@Entity
-public class User {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class User implements UserDetails {
+
+    private long id;
     private String username;
-    private String password_hash;
-    private String password_salt;
+    private String password;
     private String email;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(String username, String password_hash, String password_salt, String email) {
+    public User(
+            String username,
+            String password,
+            String email,
+            boolean isAccountNonExpired,
+            boolean isAccountNonLocked,
+            boolean isCredentialsNonExpired,
+            boolean isEnabled,
+            Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
-        this.password_hash = password_hash;
-        this.password_salt = password_salt;
+        this.password = password;
         this.email = email;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
+        this.authorities = authorities;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,20 +54,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
-    }
-
-    public String getPassword_salt() {
-        return password_salt;
-    }
-
-    public void setPassword_salt(String password_salt) {
-        this.password_salt = password_salt;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -66,9 +70,46 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User [email=" + email + ", id=" + id + ", username=" + username + "]";
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
     }
 
+    public void setAccountNonExpired(boolean isAccountNonExpired) {
+        this.isAccountNonExpired = isAccountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean isAccountNonLocked) {
+        this.isAccountNonLocked = isAccountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+
+    
 }
