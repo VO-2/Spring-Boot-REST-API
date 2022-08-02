@@ -2,15 +2,57 @@ package com.example.ecommerce_app.user;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Entity()
+@Table(
+    name = "user",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "UK_email", columnNames = "email")
+    }
+)
 public class User implements UserDetails {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "user_id")
+    private Long id;
+
+    @Size(min = 2, message = "username must be atleast 2 characters long")
+    @Column(
+        name = "username",
+        columnDefinition = "VARCHAR(30)",
+        nullable = false
+    )
     private String username;
+
+    @Column(
+        name = "password",
+        columnDefinition = "BINARY(60)",
+        nullable = false
+    )
     private String password;
+
+    @Email
+    @Column(
+        name = "email",
+        columnDefinition = "VARCHAR(50)",
+        nullable = false,
+        unique = true
+    )
     private String email;
+
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
@@ -38,11 +80,11 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,7 +151,5 @@ public class User implements UserDetails {
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
-
-
     
 }
