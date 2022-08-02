@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
         @UniqueConstraint(name = "UK_email", columnNames = "email")
     }
 )
-public class User implements UserDetails {
+public class ApplicationUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -59,9 +59,9 @@ public class User implements UserDetails {
     private boolean isEnabled;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User() {}
+    public ApplicationUser() {}
 
-    public User(
+    public ApplicationUser(
             String username,
             String password,
             String email,
