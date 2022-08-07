@@ -3,6 +3,7 @@ package com.example.ecommerce_app.user;
 import java.util.Collection;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -53,10 +54,30 @@ public class ApplicationUser implements UserDetails {
     )
     private String email;
 
+    @Column(
+        nullable = false
+    )
     private boolean isAccountNonExpired;
+
+    @Column(
+        nullable = false
+    )
     private boolean isAccountNonLocked;
+
+    @Column(
+        nullable = false
+    )
     private boolean isCredentialsNonExpired;
+
+    @Column(
+        nullable = false
+    )
     private boolean isEnabled;
+
+    @ElementCollection
+    @Column(
+        nullable = false
+    )
     private Collection<? extends GrantedAuthority> authorities;
 
     public ApplicationUser() {}
