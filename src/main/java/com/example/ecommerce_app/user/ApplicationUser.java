@@ -20,7 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(
     name = "user",
     uniqueConstraints = {
-        @UniqueConstraint(name = "UK_email", columnNames = "email")
+        @UniqueConstraint(name = "UK_email", columnNames = "email"),
+        @UniqueConstraint(name = "UK_username", columnNames = "username")
     }
 )
 public class ApplicationUser implements UserDetails {
@@ -34,7 +35,8 @@ public class ApplicationUser implements UserDetails {
     @Column(
         name = "username",
         columnDefinition = "VARCHAR(30)",
-        nullable = false
+        nullable = false,
+        unique = true
     )
     private String username;
 
