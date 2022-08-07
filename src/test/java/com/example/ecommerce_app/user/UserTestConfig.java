@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class UserTestConfig {
 
     @Bean
-    private ApplicationUser sampleApplicationUser1() {
+    protected ApplicationUser sampleApplicationUser1() {
         return new ApplicationUser(
             "username",
             "password",
