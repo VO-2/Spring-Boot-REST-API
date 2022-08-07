@@ -80,7 +80,7 @@ public class ApplicationUser implements UserDetails {
     @Column(
         nullable = false
     )
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<GrantedAuthority> authorities;
 
     public ApplicationUser() {}
 
@@ -92,7 +92,7 @@ public class ApplicationUser implements UserDetails {
             boolean isAccountNonLocked,
             boolean isCredentialsNonExpired,
             boolean isEnabled,
-            Collection<? extends GrantedAuthority> authorities) {
+            Collection<GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -167,11 +167,11 @@ public class ApplicationUser implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
     
