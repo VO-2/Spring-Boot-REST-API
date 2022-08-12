@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity()
 @Table(
-    name = "user",
+    name = "application_user",
     uniqueConstraints = {
         @UniqueConstraint(name = "UK_email", columnNames = "email"),
         @UniqueConstraint(name = "UK_username", columnNames = "username")
@@ -103,6 +103,69 @@ public class ApplicationUser implements UserDetails {
         this.authorities = authorities;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicationUser [authorities=" + authorities + ", email=" + email + ", id=" + id
+                + ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
+                + ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", password="
+                + password + ", username=" + username + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + (isAccountNonExpired ? 1231 : 1237);
+        result = prime * result + (isAccountNonLocked ? 1231 : 1237);
+        result = prime * result + (isCredentialsNonExpired ? 1231 : 1237);
+        result = prime * result + (isEnabled ? 1231 : 1237);
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ApplicationUser other = (ApplicationUser) obj;
+        if (authorities == null) {
+            if (other.authorities != null)
+                return false;
+        } else if (!authorities.equals(other.authorities))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (isAccountNonExpired != other.isAccountNonExpired)
+            return false;
+        if (isAccountNonLocked != other.isAccountNonLocked)
+            return false;
+        if (isCredentialsNonExpired != other.isCredentialsNonExpired)
+            return false;
+        if (isEnabled != other.isEnabled)
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
+
     public Long getId() {
         return id;
     }
@@ -135,6 +198,7 @@ public class ApplicationUser implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
     }
@@ -143,6 +207,7 @@ public class ApplicationUser implements UserDetails {
         this.isAccountNonExpired = isAccountNonExpired;
     }
 
+    @Override
     public boolean isAccountNonLocked() {
         return isAccountNonLocked;
     }
@@ -151,6 +216,7 @@ public class ApplicationUser implements UserDetails {
         this.isAccountNonLocked = isAccountNonLocked;
     }
 
+    @Override
     public boolean isCredentialsNonExpired() {
         return isCredentialsNonExpired;
     }
@@ -159,6 +225,7 @@ public class ApplicationUser implements UserDetails {
         this.isCredentialsNonExpired = isCredentialsNonExpired;
     }
 
+    @Override
     public boolean isEnabled() {
         return isEnabled;
     }
@@ -167,6 +234,7 @@ public class ApplicationUser implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
+    @Override
     public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
