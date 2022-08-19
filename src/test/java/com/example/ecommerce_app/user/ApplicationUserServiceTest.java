@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -34,7 +35,8 @@ public class ApplicationUserServiceTest {
         true,
         true,
         true,
-        List.of());
+        List.of(),
+        Set.of());
     
     @BeforeAll
     void init() {
