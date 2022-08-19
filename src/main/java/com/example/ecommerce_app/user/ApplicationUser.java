@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.user;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -15,6 +17,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.ecommerce_app.product.Product;
 
 @Entity()
 @Table(
@@ -29,7 +33,7 @@ public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
-    private Long id;
+    private Long user_id;
 
     @Size(min = 2, message = "username must be atleast 2 characters long")
     @Column(
@@ -82,6 +86,9 @@ public class ApplicationUser implements UserDetails {
     )
     private Collection<GrantedAuthority> authorities;
 
+    @OneToMany(mappedBy = "owner")
+    private Set<Product> products;
+
     public ApplicationUser() {}
 
     public ApplicationUser(
@@ -92,7 +99,8 @@ public class ApplicationUser implements UserDetails {
             boolean isAccountNonLocked,
             boolean isCredentialsNonExpired,
             boolean isEnabled,
-            Collection<GrantedAuthority> authorities) {
+            Collection<GrantedAuthority> authorities,
+            Set<Product> products) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -101,11 +109,12 @@ public class ApplicationUser implements UserDetails {
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
         this.authorities = authorities;
+        this.products = products;
     }
 
     @Override
     public String toString() {
-        return "ApplicationUser [authorities=" + authorities + ", email=" + email + ", id=" + id
+        return "ApplicationUser [authorities=" + authorities + ", email=" + email + ", user_id=" + user_id
                 + ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
                 + ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", password="
                 + password + ", username=" + username + "]";
@@ -167,11 +176,11 @@ public class ApplicationUser implements UserDetails {
     }
 
     public Long getId() {
-        return id;
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -241,6 +250,14 @@ public class ApplicationUser implements UserDetails {
 
     public void setAuthorities(Collection<GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
     
 }
