@@ -24,7 +24,7 @@ import com.example.ecommerce_app.validation.BlobMaxSize;
 public class Product {
     
     // 2 megabytes
-    private final long MAX_IMAGE_SIZE = 2097152;
+    public static final long MAX_IMAGE_SIZE = 2097152;
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -72,7 +72,13 @@ public class Product {
     private Blob thumbnail;
 
     @OneToMany(mappedBy = "product")
-    private Set<@BlobMaxSize(MAX_IMAGE_SIZE) Blob> pictures;
+    private Set<ProductPicture> pictures;
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductReview> reviews;
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductRating> ratings;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -83,7 +89,7 @@ public class Product {
 
     public Product(Long product_id, String name, int stock, boolean for_sale, BigDecimal price,
             String description, Set<Category> categories, Blob thumbnail,
-            Set<Blob> pictures, ApplicationUser owner) {
+            Set<ProductPicture> pictures, Set<ProductReview> reviews, Set<ProductRating> ratings, ApplicationUser owner) {
         this.product_id = product_id;
         this.name = name;
         this.stock = stock;
@@ -93,6 +99,8 @@ public class Product {
         this.categories = categories;
         this.thumbnail = thumbnail;
         this.pictures = pictures;
+        this.reviews = reviews;
+        this.ratings = ratings;
         this.owner = owner;
     }
 
@@ -160,11 +168,11 @@ public class Product {
         this.thumbnail = thumbnail;
     }
 
-    public Set<Blob> getPictures() {
+    public Set<ProductPicture> getPictures() {
         return pictures;
     }
 
-    public void setPictures(Set<Blob> pictures) {
+    public void setPictures(Set<ProductPicture> pictures) {
         this.pictures = pictures;
     }
 
@@ -174,6 +182,22 @@ public class Product {
 
     public void setOwner(ApplicationUser owner) {
         this.owner = owner;
+    }
+
+    public Set<ProductReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ProductReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<ProductRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<ProductRating> ratings) {
+        this.ratings = ratings;
     }
     
 }
