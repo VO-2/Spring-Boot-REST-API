@@ -36,6 +36,9 @@ public class ApplicationUserServiceTest {
         true,
         true,
         List.of(),
+        Set.of(),
+        Set.of(),
+        Set.of(),
         Set.of());
     
     @BeforeAll
