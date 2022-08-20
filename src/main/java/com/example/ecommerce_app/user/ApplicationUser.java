@@ -19,6 +19,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ecommerce_app.product.Product;
+import com.example.ecommerce_app.product.ProductRating;
+import com.example.ecommerce_app.product.ProductReview;
+import com.example.ecommerce_app.purchase.Purchase;
 
 @Entity()
 @Table(
@@ -89,6 +92,15 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private Set<Product> products;
 
+    @OneToMany(mappedBy = "author")
+    private Set<ProductReview> reviews;
+
+    @OneToMany(mappedBy = "rater")
+    private Set<ProductRating> ratings;
+
+    @OneToMany(mappedBy = "purchaser")
+    private Set<Purchase> purchases;
+
     public ApplicationUser() {}
 
     public ApplicationUser(
@@ -100,7 +112,10 @@ public class ApplicationUser implements UserDetails {
             boolean isCredentialsNonExpired,
             boolean isEnabled,
             Collection<GrantedAuthority> authorities,
-            Set<Product> products) {
+            Set<Product> products,
+            Set<ProductReview> reviews,
+            Set<ProductRating> ratings,
+            Set<Purchase> purchases) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -110,6 +125,9 @@ public class ApplicationUser implements UserDetails {
         this.isEnabled = isEnabled;
         this.authorities = authorities;
         this.products = products;
+        this.reviews = reviews;
+        this.ratings = ratings;
+        this.purchases = purchases;
     }
 
     @Override
@@ -258,6 +276,38 @@ public class ApplicationUser implements UserDetails {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public Set<ProductReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ProductReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<ProductRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<ProductRating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
     
 }
