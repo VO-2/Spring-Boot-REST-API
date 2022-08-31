@@ -46,7 +46,7 @@ public class ApplicationUserServiceTest {
      }
 
     @Test
-    void contextLoads() {
+    void testContextLoads() {
         assertAll(
             () -> assertNotNull(applicationUserService),
             () -> assertNotNull(applicationUserRepository)
@@ -54,14 +54,14 @@ public class ApplicationUserServiceTest {
     }
 
     @Test
-    void loadUserByUsername_EmptyDB() {
+    void testLoadUserByUsername_EmptyDB() {
         assertThrows(UsernameNotFoundException.class, () -> {
             applicationUserService.loadUserByUsername("");
         });
     }
 
     @Test
-    void loadUserByUsername() {
+    void testLoadUserByUsername() {
         ApplicationUser savedUser = applicationUserService.loadUserByUsername(sampleApplicationUser1.getUsername());
         assertNotNull(savedUser);
     }
