@@ -1,17 +1,10 @@
 package com.example.ecommerce_app.product;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.math.BigDecimal;
 import java.util.Set;
 
-import javax.validation.Valid;
-import javax.validation.Validator;
-
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.validation.annotation.Validated;
 
 import com.example.ecommerce_app.user.ApplicationUser;
 
@@ -33,8 +26,6 @@ public class ProductValidationTest {
             "",
             Set.of(),
             null,
-            Set.of(), 
-            Set.of(),
             new ApplicationUser() 
         );
     }
