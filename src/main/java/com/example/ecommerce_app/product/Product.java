@@ -12,13 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import com.example.ecommerce_app.product.picture.ProductPicture;
-import com.example.ecommerce_app.product.review.ProductReview;
 import com.example.ecommerce_app.user.ApplicationUser;
 import com.example.ecommerce_app.validation.BlobMaxSize;
 
@@ -63,13 +60,6 @@ public class Product {
     @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
-    @OneToMany(mappedBy = "product")
-    @Size(max = 6)
-    private Set<ProductPicture> pictures;
-
-    @OneToMany(mappedBy = "product")
-    private Set<ProductReview> reviews;
-
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private ApplicationUser owner;
@@ -78,8 +68,7 @@ public class Product {
     }
 
     public Product(Long product_id, String name, int stock, boolean for_sale, BigDecimal price,
-            String description, Set<Category> categories, Blob thumbnail,
-            Set<ProductPicture> pictures, Set<ProductReview> reviews, ApplicationUser owner) {
+            String description, Set<Category> categories, Blob thumbnail, ApplicationUser owner) {
         this.product_id = product_id;
         this.name = name;
         this.stock = stock;
@@ -88,8 +77,6 @@ public class Product {
         this.description = description;
         this.categories = categories;
         this.thumbnail = thumbnail;
-        this.pictures = pictures;
-        this.reviews = reviews;
         this.owner = owner;
     }
 
@@ -157,14 +144,6 @@ public class Product {
         this.thumbnail = thumbnail;
     }
 
-    public Set<ProductPicture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(Set<ProductPicture> pictures) {
-        this.pictures = pictures;
-    }
-
     public ApplicationUser getOwner() {
         return owner;
     }
@@ -173,12 +152,5 @@ public class Product {
         this.owner = owner;
     }
 
-    public Set<ProductReview> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Set<ProductReview> reviews) {
-        this.reviews = reviews;
-    }
     
 }

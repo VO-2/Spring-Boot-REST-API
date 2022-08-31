@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -35,7 +34,6 @@ public class ApplicationUserServiceTest {
         true,
         true,
         true,
-        Set.of(),
         Set.of(),
         Set.of(),
         Set.of()

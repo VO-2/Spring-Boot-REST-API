@@ -19,7 +19,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ecommerce_app.product.Product;
-import com.example.ecommerce_app.product.review.ProductReview;
 import com.example.ecommerce_app.purchase.Purchase;
 
 @Entity()
@@ -91,9 +90,6 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private Set<Product> products;
 
-    @OneToMany(mappedBy = "reviewer")
-    private Set<ProductReview> reviews;
-
     @OneToMany(mappedBy = "purchaser")
     private Set<Purchase> purchases;
 
@@ -109,7 +105,6 @@ public class ApplicationUser implements UserDetails {
             boolean isEnabled,
             Collection<GrantedAuthority> authorities,
             Set<Product> products,
-            Set<ProductReview> reviews,
             Set<Purchase> purchases) {
         this.username = username;
         this.password = password;
@@ -120,7 +115,6 @@ public class ApplicationUser implements UserDetails {
         this.isEnabled = isEnabled;
         this.authorities = authorities;
         this.products = products;
-        this.reviews = reviews;
         this.purchases = purchases;
     }
 
@@ -278,14 +272,6 @@ public class ApplicationUser implements UserDetails {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
-    }
-
-    public Set<ProductReview> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Set<ProductReview> reviews) {
-        this.reviews = reviews;
     }
 
     public Set<Purchase> getPurchases() {
