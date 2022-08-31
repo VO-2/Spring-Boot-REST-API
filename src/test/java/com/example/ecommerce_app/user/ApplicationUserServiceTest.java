@@ -35,11 +35,11 @@ public class ApplicationUserServiceTest {
         true,
         true,
         true,
-        List.of(),
         Set.of(),
         Set.of(),
         Set.of(),
-        Set.of());
+        Set.of()
+    );
     
     @BeforeAll
     void init() {

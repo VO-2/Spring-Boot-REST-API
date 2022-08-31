@@ -15,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
+import com.example.ecommerce_app.product.picture.ProductPicture;
+import com.example.ecommerce_app.product.review.ProductReview;
 import com.example.ecommerce_app.user.ApplicationUser;
 import com.example.ecommerce_app.validation.BlobMaxSize;
 
@@ -30,6 +33,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long product_id;
 
+    @Size(min = 3)
     @Column(
         columnDefinition = "VARCHAR(200)",
         nullable = false
@@ -37,48 +41,34 @@ public class Product {
     private String name;
 
     @Min(value = 0)
-    @Column(
-        nullable = false
-    )
+    @Column(nullable = false)
     private int stock;
 
-    @Column(
-        nullable = false
-    )
+    @Column(nullable = false)
     private boolean for_sale;
 
     @Min(value = 0)
-    @Column(
-        nullable = false
-        // columnDefinition = "DECIMAL(7, 2)"
-    )
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(
-        columnDefinition = "VARCHAR(1500)"
-    )
+    @Column(columnDefinition = "VARCHAR(1500)")
     private String description;
 
     @ElementCollection
-    @Column(
-        nullable = false
-    )
+    @Size(max = 3)
+    @Column(nullable = false)
     private Set<Category> categories;
 
-    @Column(
-        nullable = false
-    )
+    @Column(nullable = false)
     @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
     @OneToMany(mappedBy = "product")
+    @Size(max = 6)
     private Set<ProductPicture> pictures;
 
     @OneToMany(mappedBy = "product")
     private Set<ProductReview> reviews;
-
-    @OneToMany(mappedBy = "product")
-    private Set<ProductRating> ratings;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -89,7 +79,7 @@ public class Product {
 
     public Product(Long product_id, String name, int stock, boolean for_sale, BigDecimal price,
             String description, Set<Category> categories, Blob thumbnail,
-            Set<ProductPicture> pictures, Set<ProductReview> reviews, Set<ProductRating> ratings, ApplicationUser owner) {
+            Set<ProductPicture> pictures, Set<ProductReview> reviews, ApplicationUser owner) {
         this.product_id = product_id;
         this.name = name;
         this.stock = stock;
@@ -100,7 +90,6 @@ public class Product {
         this.thumbnail = thumbnail;
         this.pictures = pictures;
         this.reviews = reviews;
-        this.ratings = ratings;
         this.owner = owner;
     }
 
@@ -190,14 +179,6 @@ public class Product {
 
     public void setReviews(Set<ProductReview> reviews) {
         this.reviews = reviews;
-    }
-
-    public Set<ProductRating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(Set<ProductRating> ratings) {
-        this.ratings = ratings;
     }
     
 }

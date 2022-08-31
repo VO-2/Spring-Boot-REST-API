@@ -19,8 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ecommerce_app.product.Product;
-import com.example.ecommerce_app.product.ProductRating;
-import com.example.ecommerce_app.product.ProductReview;
+import com.example.ecommerce_app.product.review.ProductReview;
 import com.example.ecommerce_app.purchase.Purchase;
 
 @Entity()
@@ -92,11 +91,8 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private Set<Product> products;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "reviewer")
     private Set<ProductReview> reviews;
-
-    @OneToMany(mappedBy = "rater")
-    private Set<ProductRating> ratings;
 
     @OneToMany(mappedBy = "purchaser")
     private Set<Purchase> purchases;
@@ -114,7 +110,6 @@ public class ApplicationUser implements UserDetails {
             Collection<GrantedAuthority> authorities,
             Set<Product> products,
             Set<ProductReview> reviews,
-            Set<ProductRating> ratings,
             Set<Purchase> purchases) {
         this.username = username;
         this.password = password;
@@ -126,7 +121,6 @@ public class ApplicationUser implements UserDetails {
         this.authorities = authorities;
         this.products = products;
         this.reviews = reviews;
-        this.ratings = ratings;
         this.purchases = purchases;
     }
 
@@ -292,14 +286,6 @@ public class ApplicationUser implements UserDetails {
 
     public void setReviews(Set<ProductReview> reviews) {
         this.reviews = reviews;
-    }
-
-    public Set<ProductRating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(Set<ProductRating> ratings) {
-        this.ratings = ratings;
     }
 
     public Set<Purchase> getPurchases() {

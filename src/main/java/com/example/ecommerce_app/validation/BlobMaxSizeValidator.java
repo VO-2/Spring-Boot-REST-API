@@ -1,5 +1,4 @@
 package com.example.ecommerce_app.validation;
-
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -16,9 +15,9 @@ public class BlobMaxSizeValidator implements ConstraintValidator<BlobMaxSize, Bl
     }
 
     @Override
-    public boolean isValid(Blob value, ConstraintValidatorContext context) {
+    public boolean isValid(Blob blob, ConstraintValidatorContext context) {
         try {
-            return value.length() <= maxSize;
+            return blob.length() <= maxSize;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
