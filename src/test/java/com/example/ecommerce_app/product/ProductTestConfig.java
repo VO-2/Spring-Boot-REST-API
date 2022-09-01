@@ -76,6 +76,6 @@ public class ProductTestConfig {
         sampleApplicationUser
     );
 
-    static final long unusedProductId = 5l;
+    static final long unusedProductId = 50l;
 
 }
