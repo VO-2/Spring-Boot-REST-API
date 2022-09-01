@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductIntegrationTest {
 
     @Autowired
@@ -59,14 +61,6 @@ public class ProductIntegrationTest {
         assertThrows(
             RuntimeException.class,
             () -> productController.getProduct(unusedProductId)
-        );
-    }
-
-    @Test
-    void deleteProductExceptionOnInvalidId() {
-        assertThrows(
-            RuntimeException.class,
-            () -> productController.deleteProduct(unusedProductId)
         );
     }
 
