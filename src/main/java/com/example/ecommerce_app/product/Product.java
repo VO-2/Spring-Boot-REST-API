@@ -56,7 +56,7 @@ public class Product {
     @Column(nullable = false)
     private Set<Category> categories;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
