@@ -30,9 +30,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long product_id;
 
-    @Size(min = 3)
+    @Size(min = 3, max = 200)
     @Column(
-        columnDefinition = "VARCHAR(200)",
         nullable = false
     )
     private String name;
@@ -45,14 +44,14 @@ public class Product {
     private boolean for_sale;
 
     @Min(value = 0)
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
-    @Column(columnDefinition = "VARCHAR(1500)")
+    @Size(max = 1500)
     private String description;
 
     @ElementCollection
-    @Size(max = 3)
+    @Size(min = 1, max = 3)
     @Column(nullable = false)
     private Set<Category> categories;
 
@@ -67,8 +66,21 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long product_id, String name, int stock, boolean for_sale, BigDecimal price,
+    public Product(String name, int stock, boolean for_sale, BigDecimal price,
             String description, Set<Category> categories, Blob thumbnail, ApplicationUser owner) {
+        this.name = name;
+        this.stock = stock;
+        this.for_sale = for_sale;
+        this.price = price;
+        this.description = description;
+        this.categories = categories;
+        this.thumbnail = thumbnail;
+        this.owner = owner;
+    }
+
+    public Product(Long product_id, String name, int stock, boolean for_sale,
+            BigDecimal price, String description, Set<Category> categories,
+            Blob thumbnail, ApplicationUser owner) {
         this.product_id = product_id;
         this.name = name;
         this.stock = stock;
