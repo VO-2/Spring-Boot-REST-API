@@ -17,7 +17,7 @@ public class BlobMaxSizeValidator implements ConstraintValidator<BlobMaxSize, Bl
     @Override
     public boolean isValid(Blob blob, ConstraintValidatorContext context) {
         try {
-            return blob.length() <= maxSize;
+            return blob == null || blob.length() <= maxSize;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
