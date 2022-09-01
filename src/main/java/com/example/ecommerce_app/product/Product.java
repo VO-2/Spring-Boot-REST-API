@@ -30,28 +30,28 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long product_id;
 
-    @Size(min = 3, max = 200)
+    @Size(min = 3, max = 200, message = "name length must be between 3 and 200")
     @Column(
         nullable = false
     )
     private String name;
 
-    @Min(value = 0)
+    @Min(value = 0, message = "stock must be greater than or equal to 0")
     @Column(nullable = false)
     private int stock;
 
     @Column(nullable = false)
     private boolean for_sale;
 
-    @Min(value = 0)
+    @Min(value = 0, message = "price must be greater than or equal to 0")
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
-    @Size(max = 1500)
+    @Size(max = 1500, message = "description must not exceed 1500 characters")
     private String description;
 
     @ElementCollection
-    @Size(min = 1, max = 3)
+    @Size(max = 3, message = "categories must not contain more than 3 elements")
     @Column(nullable = false)
     private Set<Category> categories;
 
