@@ -55,7 +55,7 @@ public class Product {
     @Column(nullable = false)
     private Set<Category> categories;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
@@ -68,20 +68,6 @@ public class Product {
 
     public Product(String name, int stock, boolean for_sale, BigDecimal price,
             String description, Set<Category> categories, Blob thumbnail, ApplicationUser owner) {
-        this.name = name;
-        this.stock = stock;
-        this.for_sale = for_sale;
-        this.price = price;
-        this.description = description;
-        this.categories = categories;
-        this.thumbnail = thumbnail;
-        this.owner = owner;
-    }
-
-    public Product(Long product_id, String name, int stock, boolean for_sale,
-            BigDecimal price, String description, Set<Category> categories,
-            Blob thumbnail, ApplicationUser owner) {
-        this.product_id = product_id;
         this.name = name;
         this.stock = stock;
         this.for_sale = for_sale;

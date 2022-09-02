@@ -40,13 +40,6 @@ public class Purchase {
         this.purchase_date = purchase_date;
     }
 
-    public Purchase(Long purchase_id, Product product, ApplicationUser purchaser, @NotNull LocalDate purchase_date) {
-        this.purchase_id = purchase_id;
-        this.product = product;
-        this.purchaser = purchaser;
-        this.purchase_date = purchase_date;
-    }
-
     public Long getPurchase_id() {
         return purchase_id;
     }
