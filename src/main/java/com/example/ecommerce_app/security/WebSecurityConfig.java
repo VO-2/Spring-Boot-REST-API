@@ -3,27 +3,31 @@ package com.example.ecommerce_app.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.ecommerce_app.api.ApiEndpointPublicity;
 import com.example.ecommerce_app.user.ApplicationUserService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     
-    @Autowired
     ApplicationUserService applicationUserService;
+
+    @Autowired
+    public WebSecurityConfig(ApplicationUserService applicationUserService) {
+        this.applicationUserService = applicationUserService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .authorizeRequests()
-            .antMatchers(ApiEndpointPublicity.Public.toString())
+            .antMatchers(HttpMethod.GET)
             .permitAll()
             .anyRequest()
             .authenticated()
