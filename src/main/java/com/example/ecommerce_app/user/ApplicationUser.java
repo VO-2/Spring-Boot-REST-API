@@ -32,7 +32,7 @@ import com.example.ecommerce_app.purchase.Purchase;
 public class ApplicationUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long user_id;
 

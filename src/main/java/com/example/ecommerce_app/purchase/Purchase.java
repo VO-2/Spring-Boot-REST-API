@@ -17,7 +17,7 @@ import com.example.ecommerce_app.user.ApplicationUser;
 public class Purchase {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long purchase_id;
 
     @ManyToOne()

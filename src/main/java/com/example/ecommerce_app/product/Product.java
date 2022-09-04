@@ -27,7 +27,7 @@ public class Product {
     public static final long MAX_IMAGE_SIZE = 2097152;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long product_id;
 
     @Size(min = 3, max = 200, message = "name length must be between 3 and 200")
