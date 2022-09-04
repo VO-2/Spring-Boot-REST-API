@@ -2,28 +2,36 @@ package com.example.ecommerce_app.purchase;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Properties;
 import java.util.Set;
 
 import com.example.ecommerce_app.product.Product;
 import com.example.ecommerce_app.user.ApplicationUser;
+import com.mysql.cj.exceptions.ExceptionInterceptorChain;
+import com.mysql.cj.jdbc.Blob;
+import com.mysql.cj.log.NullLogger;
 
 public class PurchaseTestConfig {
 
-    static final ApplicationUser sampleApplicationUser = new ApplicationUser(
-        "username",
-        "password",
-        "email@email.com",
+    static final int productStartingStock = 1;
+
+    static final Blob sampleBlob = new com.mysql.cj.jdbc.Blob(new byte[] {0},
+        new ExceptionInterceptorChain(null, new Properties(), new NullLogger(""))
+    );
+
+    static final Product product = new Product(
+        "name",
+        productStartingStock,
         true,
-        true,
-        true,
-        true,
+        BigDecimal.ONE,
+        "description",
         Set.of(),
-        Set.of(),
-        Set.of()
+        sampleBlob,
+        null
     );
 
     static final Purchase purchase = new Purchase(
-        null,
+        product,
         null,
         LocalDate.now()
     );
