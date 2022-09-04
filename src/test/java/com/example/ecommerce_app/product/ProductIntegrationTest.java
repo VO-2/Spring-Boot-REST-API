@@ -57,7 +57,7 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    void createProductExceptionOnInvalidId() {
+    void getProductExceptionOnInvalidId() {
         assertThrows(
             RuntimeException.class,
             () -> productController.getProduct(unusedProductId)
