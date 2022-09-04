@@ -13,8 +13,12 @@ import com.example.ecommerce_app.util.Repositories;
 @Transactional
 public class ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public Product getProduct(Long productId) {
         return Repositories.getEntityById(productRepository, productId);

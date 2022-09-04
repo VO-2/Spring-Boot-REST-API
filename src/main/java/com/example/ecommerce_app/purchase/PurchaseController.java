@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/purchase")
 public class PurchaseController {
 
-    @Autowired
     private PurchaseService purchaseService;
+
+    @Autowired
+    public PurchaseController(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
+    }
 
     @GetMapping("{purchaseId}")
     public Purchase getPurchase(@PathVariable Long purchaseId) {
@@ -33,7 +37,7 @@ public class PurchaseController {
 
     @PostMapping
     public Purchase createPurchase(@RequestBody Purchase purchase) {
-        return purchaseService.savePurchase(purchase);
+        return purchaseService.makePurchase(purchase);
     }
 
     @PutMapping
