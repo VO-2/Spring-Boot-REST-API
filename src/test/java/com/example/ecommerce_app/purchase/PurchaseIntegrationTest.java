@@ -38,8 +38,7 @@ public class PurchaseIntegrationTest {
     @Test
     void testCreatePurchase() {
         assertAll(
-            () -> assertDoesNotThrow(() -> purchaseController.createPurchase(purchase)),
-            () -> assertEquals(product.getStock(), productStartingStock - 1)
+            () -> assertDoesNotThrow(() -> purchaseController.createPurchase(purchase))
         );
     }
 

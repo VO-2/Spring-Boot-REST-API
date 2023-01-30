@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.purchase;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -33,20 +34,19 @@ public class PurchaseService {
         return purchaseRepository.findAll();
     }
 
+    
     public Purchase makePurchase(Purchase purchase) {
-        Product product = purchase.getProduct();
 
-        if (!product.isFor_sale()) {
-            throw new IllegalStateException(String.format("Product '%s' is not for sale", product.getName()));
-        }
+        List<Product> products = purchase.getProducts();
 
-        product.setStock(product.getStock() - 1);
-        
-        if (product.getStock() == 0) {
-            product.setFor_sale(false);
-        }
-        
-        productRepository.save(product);
+        // Throw exception if there's a product that isn't for sale
+        products.forEach((product) -> {
+                if (!product.isFor_sale()) {
+                    throw new IllegalStateException(String.format("Product '%s' is not for sale", product.getName()));
+                }
+            }
+        );
+
         return purchaseRepository.save(purchase);
     }
 

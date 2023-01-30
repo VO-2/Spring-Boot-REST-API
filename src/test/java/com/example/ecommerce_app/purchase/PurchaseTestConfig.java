@@ -2,6 +2,7 @@ package com.example.ecommerce_app.purchase;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -13,15 +14,12 @@ import com.mysql.cj.log.NullLogger;
 
 public class PurchaseTestConfig {
 
-    static final int productStartingStock = 1;
-
     static final Blob sampleBlob = new com.mysql.cj.jdbc.Blob(new byte[] {0},
         new ExceptionInterceptorChain(null, new Properties(), new NullLogger(""))
     );
 
     static final Product product = new Product(
         "name",
-        productStartingStock,
         true,
         BigDecimal.ONE,
         "description",
@@ -31,7 +29,7 @@ public class PurchaseTestConfig {
     );
 
     static final Purchase purchase = new Purchase(
-        product,
+        List.of(product),
         null,
         LocalDate.now()
     );

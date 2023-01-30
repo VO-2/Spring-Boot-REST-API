@@ -1,6 +1,10 @@
 package com.example.ecommerce_app.purchase;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ecommerce_app.product.Product;
 
 @RestController
 @Validated
@@ -35,9 +42,9 @@ public class PurchaseController {
         return purchaseService.getAllPurchases();
     }
 
-    @PostMapping
-    public Purchase createPurchase(@RequestBody Purchase purchase) {
-        return purchaseService.makePurchase(purchase);
+    @PostMapping()
+    public Purchase createPurchase(@RequestBody Purchase cart)  {
+        return purchaseService.makePurchase(cart);
     }
 
     @PutMapping

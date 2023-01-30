@@ -36,10 +36,6 @@ public class Product {
     )
     private String name;
 
-    @Min(value = 0, message = "stock must be greater than or equal to 0")
-    @Column(nullable = false)
-    private int stock;
-
     @Column(nullable = false)
     private boolean for_sale;
 
@@ -66,10 +62,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, int stock, boolean for_sale, BigDecimal price,
+    public Product(String name, boolean for_sale, BigDecimal price,
             String description, Set<Category> categories, Blob thumbnail, ApplicationUser owner) {
         this.name = name;
-        this.stock = stock;
         this.for_sale = for_sale;
         this.price = price;
         this.description = description;
@@ -92,14 +87,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public boolean isFor_sale() {

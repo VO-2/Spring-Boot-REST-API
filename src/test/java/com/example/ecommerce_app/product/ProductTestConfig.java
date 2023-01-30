@@ -30,7 +30,6 @@ public class ProductTestConfig {
 
     static final Product testProduct = new Product(
         "name",
-        1,
         true,
         BigDecimal.ONE,
         "description",
@@ -41,7 +40,6 @@ public class ProductTestConfig {
 
     static final Product testProductToRead = new Product(
         "name",
-        1,
         true,
         BigDecimal.ONE,
         "description",
@@ -52,7 +50,6 @@ public class ProductTestConfig {
 
     static final Product testProductToDelete = new Product(
         "name",
-        1,
         true,
         BigDecimal.ONE,
         "description",
@@ -63,7 +60,6 @@ public class ProductTestConfig {
 
     static final Product testProductViolatingNameSizeConstraint = new Product(
         "",
-        1,
         true,
         BigDecimal.ONE,
         "description",
@@ -74,7 +70,6 @@ public class ProductTestConfig {
 
     static final Product testProductViolatingNameNullConstraint = new Product(
         null,
-        1,
         true,
         BigDecimal.ONE,
         "description",
