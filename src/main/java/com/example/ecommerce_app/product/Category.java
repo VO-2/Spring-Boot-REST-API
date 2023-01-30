@@ -8,7 +8,7 @@ public enum Category {
     COMPUTERS ("Computers"),
     SMART_HOME ("Smart Home"),
     HOUSE_SUPPLIES ("Home, Garden & Tools"),
-   sPET_SUPPLIES ("Pet Supplies"),
+    PET_SUPPLIES ("Pet Supplies"),
     FOOD ("Food & Grocery"),
     BEAUTY_HEALTH ("Beauty & Health"),
     TOYS ("Toys, Kids & Baby"),
