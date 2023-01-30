@@ -1,12 +1,14 @@
 package com.example.ecommerce_app.purchase;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -20,9 +22,9 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long purchase_id;
 
-    @ManyToOne()
+    @ManyToMany()
     @JoinColumn(name = "product_id")
-    private Product product;
+    private List<Product> products;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -34,8 +36,8 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(Product product, ApplicationUser purchaser, @NotNull LocalDate purchase_date) {
-        this.product = product;
+    public Purchase(List<Product> products, ApplicationUser purchaser, @NotNull LocalDate purchase_date) {
+        this.products = products;
         this.purchaser = purchaser;
         this.purchase_date = purchase_date;
     }
@@ -48,12 +50,12 @@ public class Purchase {
         this.purchase_id = purchase_id;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(List<Product> products) {
+        this.products = products;
     }
 
     public ApplicationUser getPurchaser() {
