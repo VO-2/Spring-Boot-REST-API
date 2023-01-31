@@ -93,6 +93,22 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "purchaser")
     private Set<Purchase> purchases;
 
+    public ApplicationUser(
+            @Size(min = 2, message = "username must be atleast 2 characters long") String username, 
+            String password,
+            @Email String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.isAccountNonExpired = true;
+        this.isAccountNonLocked = true;
+        this.isCredentialsNonExpired = true;
+        this.isEnabled = true;
+        this.authorities = null;
+        this.products = null;
+        this.purchases = null;
+    }
+
     public ApplicationUser() {}
 
     public ApplicationUser(
