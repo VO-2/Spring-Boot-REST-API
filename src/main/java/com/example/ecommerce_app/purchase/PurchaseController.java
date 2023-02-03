@@ -33,7 +33,7 @@ public class PurchaseController {
     }
 
     @GetMapping("{purchaseId}")
-    public Purchase getPurchase(@PathVariable Long purchaseId) {
+    public Purchase getPurchase(@PathVariable(name = "purchase_id") Long purchaseId) {
         return purchaseService.getPurchase(purchaseId);
     }
 
@@ -42,14 +42,16 @@ public class PurchaseController {
         return purchaseService.getAllPurchases();
     }
 
-    @PostMapping()
-    public Purchase createPurchase(@RequestBody Purchase cart)  {
-        return purchaseService.makePurchase(cart);
+    @PostMapping
+    public Purchase createPurchase(@RequestBody Purchase purchase,
+        @RequestParam(name = "user_id", required = false) Long userId,
+        @RequestParam(name = "product_id") List<Long> productIds)  {
+            return purchaseService.savePurchase(purchase, userId, productIds);
     }
 
-    @PutMapping
-    public Purchase updatePurchase(@RequestBody Purchase purchase) {
-        return purchaseService.savePurchase(purchase);
+    @PutMapping("{purchaseId}")
+    public Purchase updatePurchase(@RequestBody Purchase purchase, @PathVariable Long userId, @RequestParam(name = "product_id") List<Long> productIds) {
+        return purchaseService.savePurchase(purchase, userId, productIds);
     }
 
     @DeleteMapping("{purchaseId}")

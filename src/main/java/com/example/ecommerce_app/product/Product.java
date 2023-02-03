@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -51,11 +52,11 @@ public class Product {
     @Column(nullable = false)
     private Set<Category> categories;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private ApplicationUser owner;
 
@@ -63,14 +64,13 @@ public class Product {
     }
 
     public Product(String name, boolean for_sale, BigDecimal price,
-            String description, Set<Category> categories, Blob thumbnail, ApplicationUser owner) {
+            String description, Set<Category> categories, Blob thumbnail) {
         this.name = name;
         this.for_sale = for_sale;
         this.price = price;
         this.description = description;
         this.categories = categories;
         this.thumbnail = thumbnail;
-        this.owner = owner;
     }
 
     public Long getProduct_id() {
@@ -136,6 +136,5 @@ public class Product {
     public void setOwner(ApplicationUser owner) {
         this.owner = owner;
     }
-
     
 }

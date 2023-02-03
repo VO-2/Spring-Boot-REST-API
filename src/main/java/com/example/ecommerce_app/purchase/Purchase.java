@@ -36,9 +36,7 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(List<Product> products, ApplicationUser purchaser, @NotNull LocalDate purchase_date) {
-        this.products = products;
-        this.purchaser = purchaser;
+    public Purchase(@NotNull LocalDate purchase_date) {
         this.purchase_date = purchase_date;
     }
 
@@ -54,7 +52,7 @@ public class Purchase {
         return products;
     }
 
-    public void setProduct(List<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

@@ -20,8 +20,7 @@ public class ProductTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final Product testProductToRead = new Product(
@@ -30,8 +29,7 @@ public class ProductTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final Product testProductToDelete = new Product(
@@ -40,8 +38,7 @@ public class ProductTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final Product testProductViolatingNameSizeConstraint = new Product(
@@ -50,8 +47,7 @@ public class ProductTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final Product testProductViolatingNameNullConstraint = new Product(
@@ -60,8 +56,7 @@ public class ProductTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final long unusedProductId = 50l;

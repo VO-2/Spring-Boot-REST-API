@@ -33,7 +33,7 @@ public class ProductIntegrationTest {
 
     @Test
     void testCreateProduct() {
-        assertDoesNotThrow(() -> productController.createProduct(testProduct));
+        assertDoesNotThrow(() -> productController.createProduct(testProduct, null));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ProductIntegrationTest {
 
     @Test
     void testUpdateProduct() {
-        assertDoesNotThrow(() -> productController.updateProduct(testProductToRead));
+        assertDoesNotThrow(() -> productController.updateProduct(testProductToRead, null));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ProductIntegrationTest {
     void createProductExceptionOnInvalidNameLength() {
         assertThrows(
             RuntimeException.class,
-            () -> productController.createProduct(testProductViolatingNameSizeConstraint)
+            () -> productController.createProduct(testProductViolatingNameSizeConstraint, null)
         );
     }
     
@@ -76,7 +76,7 @@ public class ProductIntegrationTest {
     void createProductExceptionOnNullName() {
         assertThrows(
             RuntimeException.class,
-            () -> productController.createProduct(testProductViolatingNameNullConstraint)
+            () -> productController.createProduct(testProductViolatingNameNullConstraint, null)
         );
     }
 
