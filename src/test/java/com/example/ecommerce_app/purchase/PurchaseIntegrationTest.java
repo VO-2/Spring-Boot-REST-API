@@ -38,7 +38,7 @@ public class PurchaseIntegrationTest {
     @Test
     void testCreatePurchase() {
         assertAll(
-            () -> assertDoesNotThrow(() -> purchaseController.createPurchase(purchase))
+            () -> assertDoesNotThrow(() -> purchaseController.createPurchase(purchase, null, null))
         );
     }
 
@@ -59,7 +59,7 @@ public class PurchaseIntegrationTest {
 
     @Test
     void testUpdatePurchase() {
-        assertDoesNotThrow(() -> purchaseController.updatePurchase(purchaseToRead));
+        assertDoesNotThrow(() -> purchaseController.updatePurchase(purchaseToRead, null, null));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PurchaseIntegrationTest {
     void createPurchaseExceptionOnNullPurchaseDate() {
         assertThrows(
             RuntimeException.class,
-            () -> purchaseController.createPurchase(purchaseViolatingPurchaseDateNullConstraint)
+            () -> purchaseController.createPurchase(purchaseViolatingPurchaseDateNullConstraint, null, null)
         );
     }
 }

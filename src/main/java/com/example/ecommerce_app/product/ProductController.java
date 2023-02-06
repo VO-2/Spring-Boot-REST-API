@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,14 +36,14 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    @PostMapping()
+    public Product createProduct(@RequestBody Product product, @RequestParam(name = "user_id", required = false) Long userId) {
+        return productService.saveProduct(product, userId);
     }
 
-    @PutMapping
+    @PutMapping()
     public Product updateProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+            return productService.updateProduct(product);
     }
 
     @DeleteMapping("{productId}")

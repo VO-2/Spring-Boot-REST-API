@@ -2,10 +2,10 @@ package com.example.ecommerce_app.user;
 
 import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicationUserRepository extends CrudRepository<ApplicationUser, Long> {
+public interface ApplicationUserRepository extends JpaRepository<ApplicationUser, Long> {
     Optional<ApplicationUser> findFirstByUsername(String username);
 }

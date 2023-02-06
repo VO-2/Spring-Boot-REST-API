@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import com.example.ecommerce_app.product.Product;
-import com.example.ecommerce_app.user.ApplicationUser;
 import com.mysql.cj.exceptions.ExceptionInterceptorChain;
 import com.mysql.cj.jdbc.Blob;
 import com.mysql.cj.log.NullLogger;
@@ -24,31 +23,22 @@ public class PurchaseTestConfig {
         BigDecimal.ONE,
         "description",
         Set.of(),
-        sampleBlob,
-        null
+        sampleBlob
     );
 
     static final Purchase purchase = new Purchase(
-        List.of(product),
-        null,
         LocalDate.now()
     );
 
     static final Purchase purchaseToRead = new Purchase(
-        null,
-        null,
         LocalDate.now()
     );
 
     static final Purchase purchaseToDelete = new Purchase(
-        null,
-        null,
         LocalDate.now()
     );
 
     static final Purchase purchaseViolatingPurchaseDateNullConstraint = new Purchase(
-        null,
-        null,
         null
     );
 

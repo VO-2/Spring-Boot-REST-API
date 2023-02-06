@@ -1,11 +1,15 @@
 package com.example.ecommerce_app.user;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ecommerce_app.product.Product;
 import com.example.ecommerce_app.purchase.Purchase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity()
 @Table(
@@ -32,7 +37,7 @@ import com.example.ecommerce_app.purchase.Purchase;
 public class ApplicationUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue //(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long user_id;
 
@@ -81,16 +86,18 @@ public class ApplicationUser implements UserDetails {
     )
     private boolean isEnabled;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(
         nullable = false
     )
-    private Collection<GrantedAuthority> authorities;
+    private List<GrantedAuthority> authorities;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Product> products;
 
-    @OneToMany(mappedBy = "purchaser")
+    @OneToMany(mappedBy = "purchaser", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Purchase> purchases;
 
     public ApplicationUser() {}
@@ -103,7 +110,7 @@ public class ApplicationUser implements UserDetails {
             boolean isAccountNonLocked,
             boolean isCredentialsNonExpired,
             boolean isEnabled,
-            Collection<GrantedAuthority> authorities,
+            List<GrantedAuthority> authorities,
             Set<Product> products,
             Set<Purchase> purchases) {
         this.username = username;
@@ -181,11 +188,11 @@ public class ApplicationUser implements UserDetails {
         return true;
     }
 
-    public Long getId() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setId(Long user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 
@@ -250,11 +257,11 @@ public class ApplicationUser implements UserDetails {
     }
 
     @Override
-    public Collection<GrantedAuthority> getAuthorities() {
+    public List<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+    public void setAuthorities(List<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
@@ -264,14 +271,6 @@ public class ApplicationUser implements UserDetails {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
-    }
-
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
     }
 
     public Set<Purchase> getPurchases() {

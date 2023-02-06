@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.persistence.CascadeType;
 
 import com.example.ecommerce_app.product.Product;
 import com.example.ecommerce_app.user.ApplicationUser;
@@ -22,11 +23,11 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long purchase_id;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private List<Product> products;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private ApplicationUser purchaser;
 
@@ -36,9 +37,7 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(List<Product> products, ApplicationUser purchaser, @NotNull LocalDate purchase_date) {
-        this.products = products;
-        this.purchaser = purchaser;
+    public Purchase(@NotNull LocalDate purchase_date) {
         this.purchase_date = purchase_date;
     }
 
@@ -54,7 +53,7 @@ public class Purchase {
         return products;
     }
 
-    public void setProduct(List<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
