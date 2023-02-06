@@ -41,9 +41,9 @@ public class ProductController {
         return productService.saveProduct(product, userId);
     }
 
-    @PutMapping("{userId}")
-    public Product updateProduct(@RequestBody Product product, @PathVariable Long userId) {
-        return productService.saveProduct(product, userId);
+    @PutMapping()
+    public Product updateProduct(@RequestBody Product product) {
+            return productService.updateProduct(product);
     }
 
     @DeleteMapping("{productId}")

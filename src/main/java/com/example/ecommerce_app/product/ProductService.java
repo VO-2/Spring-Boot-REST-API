@@ -37,6 +37,15 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product updateProduct(Product product) {
+        if (productRepository.existsById(product.getProduct_id())) {
+            return productRepository.save(product);
+        }
+        else {
+            throw new IllegalStateException("Product with productId '" + product.getProduct_id() + "' does not exist");
+        }
+    }
+
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }

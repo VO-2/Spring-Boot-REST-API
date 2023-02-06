@@ -53,7 +53,7 @@ public class ProductIntegrationTest {
 
     @Test
     void testUpdateProduct() {
-        assertDoesNotThrow(() -> productController.updateProduct(testProductToRead, null));
+        assertDoesNotThrow(() -> productController.updateProduct(testProductToRead));
     }
 
     @Test

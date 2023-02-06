@@ -3,7 +3,6 @@ package com.example.ecommerce_app.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,15 +37,12 @@ public class ApplicationUserController {
 
     @PostMapping
     public ApplicationUser createApplicationUser(@RequestBody ApplicationUser applicationUser) {
-        return applicationUserService.saveApplicationUser(new ApplicationUser(
-            applicationUser.getUsername(),
-            applicationUser.getPassword(),
-            applicationUser.getEmail()));
+        return applicationUserService.saveNewApplicationUser(applicationUser);
     }
 
     @PutMapping
     public ApplicationUser updateApplicationUser(@RequestBody ApplicationUser applicationUser) {
-        return applicationUserService.saveApplicationUser(applicationUser);
+        return applicationUserService.updateApplicationUser(applicationUser);
     }
 
     @DeleteMapping("{applicationUserId}")

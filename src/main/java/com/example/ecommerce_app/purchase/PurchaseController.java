@@ -49,9 +49,9 @@ public class PurchaseController {
             return purchaseService.savePurchase(purchase, userId, productIds);
     }
 
-    @PutMapping("{purchaseId}")
+    @PutMapping()
     public Purchase updatePurchase(@RequestBody Purchase purchase, @PathVariable Long userId, @RequestParam(name = "product_id") List<Long> productIds) {
-        return purchaseService.savePurchase(purchase, userId, productIds);
+        return purchaseService.updatePurchase(purchase, userId, productIds);
     }
 
     @DeleteMapping("{purchaseId}")

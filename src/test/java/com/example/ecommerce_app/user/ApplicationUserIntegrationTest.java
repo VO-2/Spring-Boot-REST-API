@@ -33,7 +33,7 @@ public class ApplicationUserIntegrationTest {
 
     @Test
     void testDeleteApplicationUser() {
-        assertDoesNotThrow(() -> applicationUserController.deleteApplicationUser(testApplicationUser_ToDelete.getId()));
+        assertDoesNotThrow(() -> applicationUserController.deleteApplicationUser(testApplicationUser_ToDelete.getUser_id()));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ApplicationUserIntegrationTest {
 
     @Test
     void testGetApplicationUser() {
-        assertDoesNotThrow(() -> applicationUserController.getApplicationUser(testApplicationUser_ToRead.getId()));
+        assertDoesNotThrow(() -> applicationUserController.getApplicationUser(testApplicationUser_ToRead.getUser_id()));
     }
 
     @Test

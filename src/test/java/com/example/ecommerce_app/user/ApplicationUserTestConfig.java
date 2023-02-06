@@ -1,6 +1,8 @@
 package com.example.ecommerce_app.user;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Set;
+import java.util.List;
 
 public class ApplicationUserTestConfig {
 
@@ -12,7 +14,7 @@ public class ApplicationUserTestConfig {
         true,
         true,
         true,
-        Set.of(),
+        List.of(new SimpleGrantedAuthority("ROLE_USER")),
         Set.of(),
         Set.of()
     );
@@ -25,7 +27,7 @@ public class ApplicationUserTestConfig {
         true,
         true,
         true,
-        Set.of(),
+        List.of(new SimpleGrantedAuthority("ROLE_USER")),
         Set.of(),
         Set.of()
     );
@@ -38,7 +40,7 @@ public class ApplicationUserTestConfig {
         true,
         true,
         true,
-        Set.of(),
+        List.of(new SimpleGrantedAuthority("ROLE_USER")),
         Set.of(),
         Set.of()
     );
@@ -51,7 +53,7 @@ public class ApplicationUserTestConfig {
         true,
         true,
         true,
-        Set.of(),
+        List.of(new SimpleGrantedAuthority("ROLE_USER")),
         Set.of(),
         Set.of()
     );
@@ -64,7 +66,7 @@ public class ApplicationUserTestConfig {
         true,
         true,
         true,
-        Set.of(),
+        List.of(new SimpleGrantedAuthority("ROLE_USER")),
         Set.of(),
         Set.of()
     );

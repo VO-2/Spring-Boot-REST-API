@@ -41,10 +41,40 @@ public class PurchaseService {
         if (userId != null) {
             purchase.setPurchaser(Repositories.getEntityById(applicationUserRepository, userId));
         }
+        
+        purchase.setProducts(mapIdsToProductList(productIds));
+        return purchaseRepository.save(purchase);
+    }
+
+    public Purchase updatePurchase(Purchase purchase, Long userId, List<Long> productIds) {
+        if (purchaseRepository.existsById(purchase.getPurchase_id())) {
+
+            if (userId != null) {
+                purchase.setPurchaser(Repositories.getEntityById(applicationUserRepository, userId));
+            }
+
+            purchase.setProducts(mapIdsToProductList(productIds));
+            return purchaseRepository.save(purchase);
+        }
+        else {
+            throw new IllegalStateException("Purcahse with purchaseId '" + purchase.getPurchase_id() + "' does not exist");
+        }
+    }
+
+    public void deletePurchase(Long purchaseId) {
+        purchaseRepository.deleteById(purchaseId);
+    }
+
+    public void deletePurchase(Purchase purchase) {
+        purchaseRepository.delete(purchase);
+    }
+
+    private List<Product> mapIdsToProductList(List<Long> productIds) {
+        List<Product> products = null;
 
         if (productIds != null) {
             // Convert list of productIds to a list of Products
-            List<Product> products = productIds.stream()
+            products = productIds.stream()
                     .map((productId) -> (Product) Repositories.getEntityById(productRepository, productId))
                     .collect(Collectors.toList());
 
@@ -54,18 +84,8 @@ public class PurchaseService {
                     throw new IllegalStateException(String.format("Product '%s' is not for sale", product.getName()));
                 }
             });
-            
-            purchase.setProducts(products);
         }
-
-        return purchaseRepository.save(purchase);
-    }
-
-    public void deletePurchase(Long purchaseId) {
-        purchaseRepository.deleteById(purchaseId);
-    }
-
-    public void deletePurchase(Purchase purchase) {
-        purchaseRepository.delete(purchase);
+        
+        return products;
     }
 }
