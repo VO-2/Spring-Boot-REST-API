@@ -72,6 +72,11 @@ const SignInPage = <>
   </div>
 </>
 
+/**
+ * Displays a screen width header which should be placed at the top of each page.
+ * Contains an image which serves as a link back to the browse page, a search bar for the browse page, and a button which navigates to the account page.
+ * @returns 
+ */
 function Header() {
   return (
     <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: colors.purple, alignItems: 'center', padding: '10px 0' }}>
@@ -99,6 +104,11 @@ function Header() {
   )
 }
 
+/**
+ * Displays a domain Product as it's image stacked on top of the product name and price
+ * @param props 
+ * @returns 
+ */
 function ProductListing(props: {name:string, price:string}) {
   return (
     <div style={{flexBasis:'21%', margin:'0 2% 20px'}}>
@@ -114,27 +124,42 @@ function ProductListing(props: {name:string, price:string}) {
 
 }
 
+/**
+ * Grid displaying {@link ProductListing}s.
+ * Each row holds at most 4 elements.
+ * @returns 
+ */
 function ProductListingGrid() {
   return (
     <div style={{margin:20, display:'flex', flexWrap:'wrap', backgroundColor:'lightblue'}}>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-        <ProductListing name='Product Name' price='$X.XX'/>
-      </div>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+      <ProductListing name='Product Name' price='$X.XX'/>
+    </div>
   )
 }
 
-function PaginationItem(props: {text: string, highlighted?: boolean, disabled?: boolean }) {
+
+type PaginationItemText = '<' | '>' | '...' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+/**
+ * Displays a cell in the {@link Pagination} grid. Defaults to not being highlighted or disabled.
+ * Cell should be highlighted if the text is a number representing the current page
+ * Cell should be disabled if the text is an arrow and there are no more pages in the corresponding direction.
+ * @param props 
+ * @returns 
+ */
+function PaginationItem(props: {text: PaginationItemText, highlighted?: boolean, disabled?: boolean }) {
   const borderProps = props.highlighted ? '1px solid black' : `1px solid ${colors.gray}`
   const textColor = props.disabled ? colors.gray : 'black'
 
@@ -145,6 +170,12 @@ function PaginationItem(props: {text: string, highlighted?: boolean, disabled?: 
   )
 }
 
+/**
+ * Displays Pagination grid at bottom of browse page. 
+ * At minimum, has 3 cells containing {@link PaginationItem}s for '<', '>', and '1'. 
+ * Displays a '...' cell after the numerical cells when there are three page number cells being displayed but there are more pages to display.
+ * @returns 
+ */
 function Pagination() {
   return (
     <div style={{display:'flex', flexDirection:'row', justifyContent:'center', margin:'0 10% 20px'}}>
