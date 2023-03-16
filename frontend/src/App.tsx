@@ -6,6 +6,7 @@ import { ReactComponent as Account } from './assets/svg/account.svg'
 import { ReactComponent as MagnifyingGlass } from './assets/svg/search.svg'
 import { ReactComponent as Chevron } from './assets/svg/dropdown.svg'
 import { ReactComponent as Plus } from './assets/svg/plus.svg'
+import productPlaceholder from './assets/image/placeholder.jpg'
 
 const colors = {
   gray: '#bfbfbf',
@@ -47,18 +48,6 @@ function Error(props: { message: string }) {
   )
 }
 
-/**
- * Displays screen width footer. Should be the last component in the {@link App} container.
- * @returns 
- */
-function Footer() {
-  return (
-    <footer style={{ backgroundColor: '#4F2285', width: '100%' }}>
-      <p style={{ textAlign: 'center', color: '#bfbfbf', padding: 20 }}>Copyright © 2023, ShopEZ.com, All rights reserved.</p>
-    </footer>
-  )
-}
-
 const SignInPage = <>
   <header style={{ display: 'flex', justifyContent: 'center', padding: 20 }}>
     <LogoDark />
@@ -80,6 +69,18 @@ const SignInPage = <>
     </div>
   </div>
 </>
+
+/**
+ * Displays screen width footer. Should be the last component in the {@link App} container.
+ * @returns 
+ */
+function Footer() {
+  return (
+    <footer>
+      <p>Copyright © 2023, ShopEZ.com, All rights reserved.</p>
+    </footer>
+  )
+}
 
 /**
  * Displays a screen width header which should be placed at the top of each page.
@@ -121,12 +122,10 @@ function Header() {
  */
 function ProductListing(props: {name:string, price:string}) {
   return (
-    <div style={{flexBasis:'21%', margin:'0 2% 20px'}}>
-      <div style={{width:'100%', backgroundColor:'gray', aspectRatio:1}}>
-        <img src=""/>
-      </div>
-      <div style={{paddingLeft:4}}>
-        <p style={{margin:'5px 0'}}>{props.name}</p>
+    <div className='product-listing-container'>
+      <img src={productPlaceholder} className='product-listing-image'/>
+      <div className='product-listing-label'>
+        <p>{props.name}</p>
         <b>{props.price}</b>
       </div>
     </div>
@@ -141,7 +140,7 @@ function ProductListing(props: {name:string, price:string}) {
  */
 function ProductListingGrid(props: PropsWithChildren) {
   return (
-    <div style={{margin:20, display:'flex', flexWrap:'wrap', backgroundColor:'lightblue'}}>
+    <div className='product-listing-grid'>
       {props.children}
     </div>
   )
@@ -190,23 +189,20 @@ function Pagination() {
 
 /**
  * Displays the purchase page for a given product.
- * @Issue Image doesn't scale properly when resizing page
  * @param props 
  * @returns 
  */
-function ProductPurchasePage(props: {productName: string, productDescription: string, productPrice: number}) {
+function ProductPurchase(props: {productName: string, productDescription: string, productPrice: number}) {
   return (
-    <div style={{display:'flex', flexDirection:'row', margin:35, gap:40}}>
-        <div style={{width:400, backgroundColor:'gray', aspectRatio:1,}}>
-          <img src=""/>
-        </div>
-        <div style={{width:400, paddingTop:15, display:'flex', flexDirection:'column'}}>
-          <div style={{height:'400px', backgroundColor:'white'}}>
+    <div className='product-purchase-container'>
+        <img src={productPlaceholder}/>
+        <div className='product-purchase-label'>
+          <div>
             <h2>Product Name</h2>
-            <p style={{margin:'20px 0', fontSize:18, color:colors.gray}}><b> Product Description Product Description Product Description Product Description Product Description Product Description</b></p>
-            <b style={{fontSize:24}}>$X.XX</b>
+            <p id='product-purchase-description'><b> Product Description Product Description Product Description Product Description Product Description Product Description</b></p>
+            <b id='product-purchase-price'>$X.XX</b>
           </div>
-          <button style={{height:50, width:300, fontSize:18, fontWeight:'bold', backgroundColor:colors.orange, border:'0px'}}>
+          <button className='orange-button'>
             Buy now
           </button>
         </div>
@@ -214,22 +210,61 @@ function ProductPurchasePage(props: {productName: string, productDescription: st
   )
 }
 
+/**
+ * Page where user can create or update a product.
+ * @param props 
+ * @returns 
+ */
+function ProductManager(props: {productName: string, productDescription: string, productPrice: number}) {
+  return (
+    <form className='product-purchase-container product-manager-container'>
+      <div style={{display:'flex', alignItems:'center', flexDirection:'column'}}>
+        <img src={productPlaceholder}/>
+        <input type="file" accept='.png, .jpg, .jpeg' style={{visibility:'hidden'}}/>
+        {/* Clicking this button should simulate a click on the hidden image input */}
+        <button id='change-image'>Change Image</button>
+      </div>
+      <div className='product-purchase-label'>
+        <div>
+          <input type='text' id='product-name-input' className='header2 product-manager-input' placeholder='Edit Product Name'/>
+          <textarea rows={14} cols={1} placeholder='Edit Description' className='product-manager-input' id='product-purchase-description'/>
+          {/* Will be controlled with Currency.js */}
+          <input className='product-purchase-price product-manager-input' type='text' placeholder='$9.99' size={15}/>
+        </div>
+        <button type='submit' className='orange-button'>Save Changes</button>
+      </div>
+    </form>
+  )
+}
+
+/**
+ * Displays an object belonging to a {@link Purchase}
+ * @param props 
+ * @returns 
+ */
 function PurchaseEntry(props: {productName: string, price: string}) {
   return (
-    <div style={{display:'flex', flexDirection:'row', gap:10}}>
-      <img src="/assets/image/placeholder.jpg" alt="" style={{flex:1, aspectRatio:1}}/>
-      <div style={{flex:9, paddingTop:5}}>
-        <p style={{marginBottom:2}}>{props.productName}</p>
+    <div className='purchase-entry-container'>
+      <img src="/assets/image/placeholder.jpg"/>
+      <div className='purchase-entry-label'>
+        <p>{props.productName}</p>
         <p><b>{props.price}</b></p>
       </div>
     </div>
   )
 }
 
+/**
+ * Displays a domain purchase object. 
+ * To be rendered in the Account page after the 'Your Purchases' header
+ * Takes {@link PurchaseEntry} elements as children
+ * @param props 
+ * @returns 
+ */
 function Purchase(props: {purchaseDate: Date, total: number, orderNumber: number}) {
   return (
-    <div style={{display:'flex', flexDirection:'column',margin:'10px 20px', border:'1px solid gray'}}>
-      <div style={{display:'flex', flexDirection:'row', backgroundColor:colors.gray, gap:30, padding:5}}>
+    <div className='purchase-container'>
+      <div className='purchase-header'>
         <div>
           <p>PURCHASE DATE</p>
           <p>{props.purchaseDate.toLocaleDateString()}</p>
@@ -243,7 +278,7 @@ function Purchase(props: {purchaseDate: Date, total: number, orderNumber: number
           <p>{props.orderNumber}</p>
         </div>
       </div>
-      <div style={{display:'flex', flexDirection:'column', gap:5, padding:'5px 0 5px 5px'}}>
+      <div className='purchase-body'>
         <PurchaseEntry productName='Product' price='$X.XX'/>
         <PurchaseEntry productName='Product' price='$X.XX'/>
       </div>
@@ -257,40 +292,28 @@ function Purchase(props: {purchaseDate: Date, total: number, orderNumber: number
  * Page is only accessible to authenticated users. Unauthorized users should be redirected to the login page.
  * @returns 
  */
-function AccountPage() {
-  
-  // Button used to create new products
-  const NewProduct = <div style={{flexBasis:'21%', margin:'0 2% 20px'}}>
-    <div style={{width:'100%', backgroundColor:colors.purple, aspectRatio:1, display:'flex', justifyContent:'center', alignItems:'center'}}>
-      <Plus style={{width:'95%', height:'95%', fill:colors.orange}}/>
-    </div>
-    <button style={{height:35, width:'100%', fontSize:18, fontWeight:'bold', backgroundColor:colors.orange, border:'0px', marginTop:10}}>
-      New Product
-    </button>
-  </div>
-
+function AccountPage() {    
   return (
     <div>
-      <div style={{display:'flex', justifyContent:'center', marginTop:10}}>
-        <h2>Your Items</h2>
-      </div>
-
+      <h2 className='account-section-header'>
+        Your Items
+      </h2>
       <ProductListingGrid>
-         {NewProduct}
+        <div className='product-listing-container' id='product-listing-new-product'>
+          <div className='product-listing-image'><Plus/></div>
+          <button className='orange-button'>New Product</button>
+        </div>
         <ProductListing name='Product Name' price='$X.XX'/>
       </ProductListingGrid>
-
-      <div style={{display:'flex', justifyContent:'center', margin:'15px 0'}}>
-        <h2>Your Purchases</h2>
-      </div>
-
+      <h2 className='account-section-header'>
+        Your Purchases
+      </h2>
       <div>
         <Purchase purchaseDate={new Date()} total={20.99} orderNumber={5041}/>
         <Purchase purchaseDate={new Date()} total={14.65} orderNumber={3450}/>
       </div>
-      
-      <div style={{display:'flex', justifyContent:'center'}}>
-        <button style={{height:35, width:210, fontSize:18, fontWeight:'bold', backgroundColor:colors.orange, border:'0px', margin:'20px 0 30px 0'}}>
+      <div className='account-section-header'>
+        <button className='orange-button logout-button'>
           Logout
         </button>
       </div>
@@ -307,7 +330,7 @@ function App() {
   return (
     <>
       <Header/>
-      <AccountPage/>
+      <ProductManager productName='Name' productDescription='Description' productPrice={9.99}/>
       <Footer/>
     </>
   )
