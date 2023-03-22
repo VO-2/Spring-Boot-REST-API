@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import { ReactComponent as LogoDark } from './assets/svg/logo-dark.svg'
 import { ReactComponent as Logo } from './assets/svg/logo.svg'
 import { ReactComponent as Warning } from './assets/svg/error.svg'
@@ -8,67 +8,65 @@ import { ReactComponent as Chevron } from './assets/svg/dropdown.svg'
 import { ReactComponent as Plus } from './assets/svg/plus.svg'
 import productPlaceholder from './assets/image/placeholder.jpg'
 
-const colors = {
-  gray: '#bfbfbf',
-  purple: '#4F2285',
-  orange: 'orange'
-}
-
 function LoginInput(props: { label: string, errorMsg?: string }) {
   return (
-    <div style={{ margin: '14px 0' }}>
-      <label style={{ display: 'block', marginLeft: 4 }}><b>{props.label}</b></label>
-      <input style={{ display: 'block', margin: '4px 0', border: 'solid #bfbfbf 1px', padding: '4px 0px', width: '100%' }}></input>
-      <p style={{ color: 'red', fontSize: '14px' }}>{props.errorMsg}</p>
+    <div className='login-input-container'>
+      <label>{props.label}</label>
+      <input/>
+      <p>{props.errorMsg}</p>
     </div>
   )
 }
 
 function LoginForm(props: { title: string } & PropsWithChildren) {
   return (
-    <form style={{ width: '100%', border: 'solid #bfbfbf 1px', borderRadius: 1, padding: '5px 8px' }}>
-      <h2 style={{ marginLeft: 4 }}>{props.title}</h2>
+    <form className='login-form'>
+      <h2>{props.title}</h2>
       {props.children}
-      <input type="submit" value="Continue" style={{ width: '100%', backgroundColor: 'orange', border: '1px solid gray', fontWeight: '600', padding: 6, margin: '7px 0px 10px' }} />
+      <input type="submit" value="Continue"/>
     </form>
   )
 }
 
 function Error(props: { message: string }) {
   return (
-    <div style={{ display: 'flex', border: 'solid red 1px', flexDirection: 'row', padding: '8px 0px', marginBottom: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '4px 4px 0px' }}>
-        <Warning style={{ fill: 'red' }} />
+    <div className='login-error-container'>
+      <div className='login-error-icon-container'>
+        <Warning/>
       </div>
       <div>
-        <p style={{ fontSize: 22, color: 'red', display: 'block' }}>There was a problem</p>
+        <p className='login-error-label'>There was a problem</p>
         <p>{props.message}</p>
       </div>
     </div>
   )
 }
 
-const SignInPage = <>
-  <header style={{ display: 'flex', justifyContent: 'center', padding: 20 }}>
-    <LogoDark />
-  </header>
-  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '25px 50px' }}>
-    <div style={{ width: 350, marginRight: 50 }}>
-      <Error message='Error Message' />
-      <LoginForm title='Sign In'>
-        <LoginInput label='Email' errorMsg='* Invalid email address' />
-        <LoginInput label='Password' />
-      </LoginForm>
-    </div>
-    <div style={{ width: 350, marginLeft: 50 }}>
-      <LoginForm title='Create Account'>
-        <LoginInput label='Email' />
-        <LoginInput label='Password' />
-        <LoginInput label='Re-enter Password' />
-      </LoginForm>
-    </div>
-  </div>
-</>
+function SignInPage() {
+  return (
+    <>
+      <div className='login-header-container'>
+        <LogoDark />
+      </div>
+      <div className='login-body-container'>
+        <div className='login-column'>
+          <Error message='Error Message' />
+          <LoginForm title='Sign In'>
+            <LoginInput label='Email' errorMsg='* Invalid email address' />
+            <LoginInput label='Password' />
+          </LoginForm>
+        </div>
+        <div className='login-column'>
+          <LoginForm title='Create Account'>
+            <LoginInput label='Email' />
+            <LoginInput label='Password' />
+            <LoginInput label='Re-enter Password' />
+          </LoginForm>
+        </div>
+      </div>
+    </>
+  )
+} 
 
 /**
  * Displays screen width footer. Should be the last component in the {@link App} container.
@@ -90,25 +88,24 @@ function Footer() {
  */
 function Header() {
   return (
-    <header style={{ display: 'flex', flexDirection: 'row', backgroundColor: colors.purple, alignItems: 'center', padding: '10px 0' }}>
-      <div style={{ flex: 1, margin: '0px 10px' }}>
+    <header>
+      <div className='header-logo-container'>
         <Logo />
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row', height: 50, justifyContent: 'center', flex: 3, backgroundColor: 'blue' }}>
-        <div style={{ backgroundColor: 'gray', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 145, padding: 2, borderRadius: '5px 0px 0px 5px' }}>
-          <p style={{ textAlign: 'center', fontSize: 14, borderRadius: '' }}>All Departments</p>
+      <div className='header-search-container'>
+        <div className='header-search-dropdown'>
+          <p>All Departments</p>
           <Chevron />
         </div>
-        <input placeholder="Search ShopEZ" style={{ backgroundColor: 'white', flex: 1, width: 250, paddingLeft: 5, fontSize: 18 }}>
-        </input>
-        <div style={{ width: 50, backgroundColor: colors.orange, borderRadius: '0px 5px 5px 0px' }}>
-          <MagnifyingGlass style={{ width: '100%', height: '100%' }} />
+        <input className='header-search-input' placeholder="Search ShopEZ"/>
+        <div className='header-search-button'>
+          <MagnifyingGlass/>
         </div>
       </div>
-      <div style={{ margin: '0 10px', backgroundColor: 'red', width: 140, flex: 1 }}>
-        <div style={{ border: '3px solid white', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingRight: 9 }}>
-          <Account style={{ width: 36, height: 36, fill: 'white' }} />
-          <p style={{ color: 'white', fontSize: 20, fontWeight: 500 }}>Account</p>
+      <div className='header-account-container'>
+        <div className='header-account-button'>
+          <Account/>
+          <p>Account</p>
         </div>
       </div>
     </header>
@@ -157,8 +154,8 @@ type PaginationItemText = '<' | '>' | '...' | '1' | '2' | '3' | '4' | '5' | '6' 
  * @returns 
  */
 function PaginationItem(props: {text: PaginationItemText, highlighted?: boolean, disabled?: boolean }) {
-  const borderProps = props.highlighted ? '1px solid black' : `1px solid ${colors.gray}`
-  const textColor = props.disabled ? colors.gray : 'black'
+  const borderProps = props.highlighted ? '1px solid black' : `1px solid #bfbfbf`
+  const textColor = props.disabled ? '#bfbfbf' : 'black'
 
   return (
     <div style={{padding:'20px 30px', border:borderProps}}>
@@ -321,19 +318,23 @@ function AccountPage() {
   )
 }
 
+function AppBody() {
+  const [pathname, usePathname] = useState(window.location.pathname)
+  console.log(pathname)
+  return (
+    <>
+      <SignInPage/>
+      <Footer/>
+    </>
+  )
+}
+
 /**
  * TODO: Update footer so that it switches between relative and absolute positioning based on page content
  * @returns 
  */
 function App() {    
-
-  return (
-    <>
-      <Header/>
-      <ProductManager productName='Name' productDescription='Description' productPrice={9.99}/>
-      <Footer/>
-    </>
-  )
+  return <AppBody/>
 }
 
 export default App;
