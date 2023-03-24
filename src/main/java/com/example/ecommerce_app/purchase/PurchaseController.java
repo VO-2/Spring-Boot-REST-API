@@ -22,7 +22,7 @@ import com.example.ecommerce_app.product.Product;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/purchase")
+@RequestMapping("/api/purchase")
 public class PurchaseController {
 
     private PurchaseService purchaseService;

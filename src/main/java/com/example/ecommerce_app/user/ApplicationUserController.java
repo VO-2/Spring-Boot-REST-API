@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/user")
 public class ApplicationUserController {
 
     private ApplicationUserService applicationUserService;
