@@ -53,7 +53,6 @@ public class Product {
     private Set<Category> categories;
 
     @Column(nullable = true)
-    @BlobMaxSize(MAX_IMAGE_SIZE)
     private Blob thumbnail;
 
     @ManyToOne(cascade = CascadeType.ALL)
