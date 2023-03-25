@@ -52,14 +52,6 @@ public class ApplicationUserIntegrationTest {
     }
 
     @Test
-    void getApplicationUserInvalidNameSize() {
-        assertThrows(
-            RuntimeException.class,
-            () -> applicationUserController.createApplicationUser(testApplicationUser_ViolatingNameSizeConstraint)
-        );
-    }
-
-    @Test
     void getApplicationUserInvalidEmailFormat() {
         assertThrows(
             RuntimeException.class,
