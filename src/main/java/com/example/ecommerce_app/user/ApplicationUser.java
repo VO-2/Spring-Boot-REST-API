@@ -1,8 +1,6 @@
 package com.example.ecommerce_app.user;
 
 import java.util.Set;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
-
-import org.springframework.security.core.GrantedAuthority;
 import com.example.ecommerce_app.product.Product;
 import com.example.ecommerce_app.purchase.Purchase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,7 +57,6 @@ public class ApplicationUser {
     public ApplicationUser() {}
 
     public ApplicationUser(
-            String username,
             String password,
             String email,
             Set<Product> products,
