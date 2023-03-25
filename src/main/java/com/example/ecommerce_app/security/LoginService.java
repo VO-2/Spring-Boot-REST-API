@@ -27,11 +27,12 @@ public class LoginService {
      */
     public ApplicationUser login(ApplicationUser user) {
         ApplicationUser storedUser = applicationUserRepository.findFirstByEmail(user.getEmail()).orElseThrow();
-        if (storedUser.getPassword() == passwordEncoder.encode(user.getPassword())) {
+
+        if (passwordEncoder.matches(user.getPassword(), storedUser.getPassword())) {
             return storedUser;
         }
         else {
-            throw new IllegalArgumentException("Invalid password for user: " + user.getEmail());
+            throw new IllegalArgumentException("Input password does not match stored password for user: " + user.getEmail());
         }
     }
 }
