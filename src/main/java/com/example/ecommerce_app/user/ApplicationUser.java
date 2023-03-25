@@ -73,11 +73,6 @@ public class ApplicationUser {
             String username,
             String password,
             String email,
-            boolean isAccountNonExpired,
-            boolean isAccountNonLocked,
-            boolean isCredentialsNonExpired,
-            boolean isEnabled,
-            List<GrantedAuthority> authorities,
             Set<Product> products,
             Set<Purchase> purchases) {
         this.username = username;
