@@ -34,22 +34,6 @@ public class ApplicationUser {
     @Column(name = "user_id")
     private Long user_id;
 
-    @Size(min = 2, message = "username must be atleast 2 characters long")
-    @Column(
-        name = "username",
-        columnDefinition = "VARCHAR(30)",
-        nullable = false,
-        unique = true
-    )
-    private String username;
-
-    @Column(
-        name = "password",
-        columnDefinition = "BINARY(60)",
-        nullable = false
-    )
-    private String password;
-
     @Email
     @Column(
         name = "email",
@@ -58,6 +42,14 @@ public class ApplicationUser {
         unique = true
     )
     private String email;
+
+    @Column(
+        name = "password",
+        columnDefinition = "BINARY(60)",
+        nullable = false
+    )
+    private String password;
+
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -75,54 +67,10 @@ public class ApplicationUser {
             String email,
             Set<Product> products,
             Set<Purchase> purchases) {
-        this.username = username;
         this.password = password;
         this.email = email;
         this.products = products;
         this.purchases = purchases;
-    }
-
-    @Override
-    public String toString() {
-        return "ApplicationUser [email=" + email + ", user_id=" + user_id
-                + password + ", username=" + username + "]";
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ApplicationUser other = (ApplicationUser) obj;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        return true;
     }
 
     public Long getUser_id() {
@@ -131,14 +79,6 @@ public class ApplicationUser {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
