@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     name = "application_user",
     uniqueConstraints = {
         @UniqueConstraint(name = "UK_email", columnNames = "email"),
-        @UniqueConstraint(name = "UK_username", columnNames = "username")
     }
 )
 public class ApplicationUser {
