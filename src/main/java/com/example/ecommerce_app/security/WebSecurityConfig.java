@@ -13,47 +13,41 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.ecommerce_app.user.ApplicationUserService;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     
+    private static final String REV_PROXY_ORIGIN = "http://localhost:8000";
     ApplicationUserService applicationUserService;
     PasswordEncoder passwordEncoder;
 
-    @Autowired
     public WebSecurityConfig(ApplicationUserService applicationUserService, PasswordEncoder passwordEncoder) {
         this.applicationUserService = applicationUserService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-            .csrf().disable()
-            .authorizeRequests((auth) -> auth
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
-                .antMatchers("/**").hasRole("USER")
-                .anyRequest().authenticated())
-            .userDetailsService(applicationUserService)
-            .headers(headers -> headers.frameOptions().sameOrigin())
-            .httpBasic(Customizer.withDefaults())
-            .build();
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.csrf().disable().build();
     }
 
-    // @Bean
-    // public DaoAuthenticationProvider daoAuthenticationProvider() {
-    //     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    //     provider.setUserDetailsService(applicationUserService);
-    //     provider.setPasswordEncoder(passwordEncoder);
-    //     return provider;
-    // }
-
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.authenticationProvider(daoAuthenticationProvider());
-    // }
-
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    configuration.setAllowedOrigins(Arrays.asList(REV_PROXY_ORIGIN));
+	    configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
+    }
 }
