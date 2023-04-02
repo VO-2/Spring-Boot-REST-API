@@ -1,5 +1,6 @@
 package com.example.ecommerce_app.purchase;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,7 +38,9 @@ public class PurchaseService {
         return purchaseRepository.findAll();
     }
 
-    public Purchase savePurchase(Purchase purchase, Long userId, List<Long> productIds) {
+    public Purchase savePurchase(Long userId, List<Long> productIds) {
+        Purchase purchase = new Purchase(LocalDate.now());
+        
         if (userId != null) {
             purchase.setPurchaser(Repositories.getEntityById(applicationUserRepository, userId));
         }

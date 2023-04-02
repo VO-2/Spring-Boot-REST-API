@@ -43,10 +43,10 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public Purchase createPurchase(@RequestBody Purchase purchase,
+    public Purchase createPurchase(
         @RequestParam(name = "user_id", required = false) Long userId,
         @RequestParam(name = "product_id") List<Long> productIds)  {
-            return purchaseService.savePurchase(purchase, userId, productIds);
+            return purchaseService.savePurchase(userId, productIds);
     }
 
     @PutMapping()
