@@ -1,13 +1,11 @@
 package com.example.ecommerce_app.product;
 
-import static com.example.ecommerce_app.product.ProductTestConfig.testProduct;
-import static com.example.ecommerce_app.product.ProductTestConfig.testProductToDelete;
-import static com.example.ecommerce_app.product.ProductTestConfig.testProductToRead;
-import static com.example.ecommerce_app.product.ProductTestConfig.testProductViolatingNameNullConstraint;
-import static com.example.ecommerce_app.product.ProductTestConfig.testProductViolatingNameSizeConstraint;
-import static com.example.ecommerce_app.product.ProductTestConfig.unusedProductId;
+import static com.example.ecommerce_app.product.ProductTestConfig.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,6 +27,7 @@ public class ProductIntegrationTest {
     void init() {
         productRepository.save(testProductToDelete);
         productRepository.save(testProductToRead);
+        productRepository.save(testProductToSearch);
     }
 
     @Test
@@ -54,6 +53,11 @@ public class ProductIntegrationTest {
     @Test
     void testUpdateProduct() {
         assertDoesNotThrow(() -> productController.updateProduct(testProductToRead));
+    }
+
+    @Test
+    void testSearchProduct() {
+        assertTrue(() ->  productController.searchProducts("word").contains(testProductToSearch));
     }
 
     @Test
