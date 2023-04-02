@@ -32,6 +32,16 @@ public class ProductTestConfig {
         sampleBlob
     );
 
+    static final Product testProductToSearch = new Product(
+        "Product Word",
+        true,
+        BigDecimal.ONE,
+        "description",
+        Set.of(),
+        sampleBlob
+    );
+
+
     static final Product testProductToDelete = new Product(
         "name",
         true,
