@@ -36,6 +36,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @PostMapping("/search")
+    public List<Product> searchProducts(@RequestParam(name = "product_name", defaultValue = "") String productName) {
+        return productService.searchProducts(productName);
+    }
+
     @PostMapping()
     public Product createProduct(@RequestBody Product product, @RequestParam(name = "user_id", required = false) Long userId) {
         return productService.saveProduct(product, userId);
