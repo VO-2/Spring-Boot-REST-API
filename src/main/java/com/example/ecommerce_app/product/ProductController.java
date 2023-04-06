@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping("/search")
-    public List<Product> searchProducts(@RequestParam(name = "product_name", defaultValue = "") String productName) {
+    public List<Product> searchProducts(@RequestParam(name = "name", defaultValue = "") String productName) {
         return productService.searchProducts(productName);
     }
 
