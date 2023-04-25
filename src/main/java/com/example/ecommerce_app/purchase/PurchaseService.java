@@ -39,12 +39,13 @@ public class PurchaseService {
     }
 
     public Purchase savePurchase(Long userId, List<Long> productIds) {
-        Purchase purchase = new Purchase(LocalDate.now());
-        
-        if (userId != null) {
-            purchase.setPurchaser(Repositories.getEntityById(applicationUserRepository, userId));
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
         }
-        
+
+        Purchase purchase = new Purchase(LocalDate.now());
+
+        purchase.setPurchaser(Repositories.getEntityById(applicationUserRepository, userId));
         purchase.setProducts(mapIdsToProductList(productIds));
         return purchaseRepository.save(purchase);
     }
