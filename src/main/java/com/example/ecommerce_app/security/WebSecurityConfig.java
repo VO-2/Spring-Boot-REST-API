@@ -23,7 +23,6 @@ public class WebSecurityConfig {
     ApplicationUserService applicationUserService;
     PasswordEncoder passwordEncoder;
 
-    @Autowired
     public WebSecurityConfig(ApplicationUserService applicationUserService, PasswordEncoder passwordEncoder) {
         this.applicationUserService = applicationUserService;
         this.passwordEncoder = passwordEncoder;
@@ -32,28 +31,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-            .csrf().disable()
-            .authorizeRequests((auth) -> auth
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
-                .antMatchers("/**").hasRole("USER")
-                .anyRequest().authenticated())
-            .userDetailsService(applicationUserService)
-            .headers(headers -> headers.frameOptions().sameOrigin())
-            .httpBasic(Customizer.withDefaults())
-            .build();
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((auth) -> auth
+                        .antMatchers(HttpMethod.GET).permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+                        .anyRequest().authenticated())
+                .userDetailsService(applicationUserService)
+                .headers(headers -> headers.frameOptions().sameOrigin())
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
-
-    // @Bean
-    // public DaoAuthenticationProvider daoAuthenticationProvider() {
-    //     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    //     provider.setUserDetailsService(applicationUserService);
-    //     provider.setPasswordEncoder(passwordEncoder);
-    //     return provider;
-    // }
-
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.authenticationProvider(daoAuthenticationProvider());
-    // }
-
 }
