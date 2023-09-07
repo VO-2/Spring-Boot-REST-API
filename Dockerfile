@@ -19,7 +19,7 @@ CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments='-agentlib:jdw
 FROM base as build
 RUN ./mvnw package
 
-FROM public.ecr.aws/lambda/java:17 as production
+FROM eclipse-temurin:17-jdk-jammy as production
 EXPOSE 8080
 COPY --from=build /app/target/ecommerce_app-*.jar /ecommerce_app.jar
 CMD ["java", "-jar", "/ecommerce_app.jar"]
