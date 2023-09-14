@@ -20,3 +20,5 @@ A REST-API written in Java using the Spring Boot framework. Containerized and de
 3. Update the ECS Task Definition with the new database credentials
 
 4. Deploy a new ECS Service using the revised task definition
+
+### * Delete the MySQL instance and ECS service afterwards to avoid charges
