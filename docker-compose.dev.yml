@@ -5,19 +5,19 @@ services:
       context: .
       target: development
     ports:
-      - "8000:8000"
-      - "8080:8080"
+      - "80:80"
     environment:
       - DB_URL=jdbc:mysql://mysqlserver/ecommerce_app
       - DB_USERNAME=ecommerce_app
       - DB_PASSWORD=ecommerce_app
+      - SERVER_ADDRESS=0.0.0.0
     volumes:
       - ./:/app
     depends_on:
       - mysqlserver
 
   mysqlserver:
-    image: mysql:8.0
+    image: amd64/mysql:8.0
     ports:
       - "127.0.0.1:3306:3306"
     environment:
