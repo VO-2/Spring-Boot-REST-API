@@ -9,6 +9,7 @@ COPY src ./src
 
 # Use in-memory db for testing
 ENV DB_URL=jdbc:h2:mem:testdb
+ENV SERVER_ADDRESS=127.0.0.1
 
 FROM base as test
 CMD ["./mvnw", "test"]
@@ -20,6 +21,6 @@ FROM base as build
 RUN ./mvnw package
 
 FROM eclipse-temurin:17-jdk-jammy as production
-EXPOSE 8080
+EXPOSE 80
 COPY --from=build /app/target/ecommerce_app-*.jar /ecommerce_app.jar
 CMD ["java", "-jar", "/ecommerce_app.jar"]
